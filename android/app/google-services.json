@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "970397575269",
+    "project_id": "recipes-calculator-73cb4",
+    "storage_bucket": "recipes-calculator-73cb4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:970397575269:android:897102dca53df8fa02be8c",
+        "android_client_info": {
+          "package_name": "com.example.recipes_calculator"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7fMMAwNviX84Za3wN3IYgaHwABKxLhGE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
