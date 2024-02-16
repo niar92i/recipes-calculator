@@ -1,9 +1,6 @@
-import 'dart:math';
-
+import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import 'login_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,11 +13,9 @@ class _HomePageState extends State<HomePage> {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   Future logout() async {
-    await _firebaseAuth
-        .signOut()
-        .whenComplete(() =>
-        Navigator.pushReplacementNamed(context, "/login")
-    );
+    await _firebaseAuth.signOut().whenComplete(() =>
+        // Navigator.pushReplacementNamed(context, "/login")
+        Get.offAllNamed("/login"));
   }
 
   @override
@@ -40,7 +35,7 @@ class _HomePageState extends State<HomePage> {
               automaticallyImplyLeading: false,
               backgroundColor: Colors.transparent,
               title: const Text(
-                'Home Page',
+                'Main Menu',
                 style: TextStyle(color: Colors.white, fontSize: 14),
               ),
             ),
@@ -53,11 +48,13 @@ class _HomePageState extends State<HomePage> {
                     width: 140,
                     child: ElevatedButton.icon(
                       onPressed: () {
-
+                        Get.toNamed('/calculator');
                       },
                       icon: const Icon(
                         Icons.calculate_outlined,
-                      ), label: const Text('Calculator'),),
+                      ),
+                      label: const Text('Calculator'),
+                    ),
                   ),
                 ),
                 Container(
@@ -65,39 +62,44 @@ class _HomePageState extends State<HomePage> {
                   child: SizedBox(
                     width: 140,
                     child: ElevatedButton.icon(
-                      onPressed: () {
-
-                      },
+                      onPressed: () {},
                       icon: const Icon(
                         Icons.menu_book_outlined,
-                      ), label: const Text('Recipes'),),
+                      ),
+                      label: const Text('Recipes'),
+                    ),
                   ),
                 ),
-                const SizedBox(height: 20,),
+                const SizedBox(
+                  height: 20,
+                ),
                 Align(
                   alignment: Alignment.center,
                   child: ElevatedButton.icon(
-                      onPressed: () {
-                        showDialog<String>(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                            content: const Text('Are you sure you want to logout ?'),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () => Navigator.pop(context, 'Cancel'),
-                                child: const Text('Cancel'),
-                              ),
-                              TextButton(
-                                onPressed: () =>  logout(),
-                                child: const Text('OK'),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                      icon: const Icon(
-                        Icons.logout_outlined,
-                      ), label: const Text('Logout'),),
+                    onPressed: () {
+                      showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          content:
+                              const Text('Are you sure you want to logout ?'),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'Cancel'),
+                              child: const Text('Cancel'),
+                            ),
+                            TextButton(
+                              onPressed: () => logout(),
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                    icon: const Icon(
+                      Icons.logout_outlined,
+                    ),
+                    label: const Text('Logout'),
+                  ),
                 ),
               ],
             ),

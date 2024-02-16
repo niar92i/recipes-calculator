@@ -1,10 +1,12 @@
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:recipes_calculator/pages/calculator_page.dart';
 import 'package:recipes_calculator/pages/home_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:recipes_calculator/pages/login_page.dart';
 import 'firebase_options.dart';
+import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +18,6 @@ void main() async {
   firebaseAppCheck.activate(
     androidProvider: AndroidProvider.debug,
   );
-  firebaseAppCheck.getToken().then((value) => print('APP CHECK: $value'));
   runApp(const MyApp());
 }
 
@@ -26,11 +27,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     FirebaseAuth auth = FirebaseAuth.instance;
-    return MaterialApp(
+    return GetMaterialApp(
       initialRoute: '/login',
       routes: {
         '/home': (context) => const HomePage(),
         '/login': (context) => LoginPage(),
+        '/calculator': (context) => CalculatorPage(),
       },
       title: 'Recipes Calculator',
       theme: ThemeData(

@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:recipes_calculator/pages/home_page.dart';
+import 'package:get/get.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -14,50 +14,38 @@ class LoginPage extends StatelessWidget {
 
   Future<void> signIn(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
-
       try {
-        await auth
-            .signInWithEmailAndPassword(
-                email: _emailController.text, password: _passwordController.text);
-
-        ScaffoldMessenger.of(context)
-            .showSnackBar(
+        await auth.signInWithEmailAndPassword(
+            email: _emailController.text, password: _passwordController.text);
+        ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Logged In Successfully'),
           ),
         );
-        Navigator.pushReplacementNamed(context, "/home");
-
+        Get.offAllNamed("/home");
       } on FirebaseAuthException catch (e) {
-        ScaffoldMessenger.of(context)
-              .showSnackBar(
-            SnackBar(
-              content: Text('${e.message}'),
-            ),
-          );
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('${e.message}'),
+          ),
+        );
       }
     }
   }
 
   Future<void> signUp(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
-
       try {
-        await auth
-            .createUserWithEmailAndPassword(
+        await auth.createUserWithEmailAndPassword(
             email: _emailController.text, password: _passwordController.text);
-
-        ScaffoldMessenger.of(context)
-            .showSnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Successfully Signed Up'),
           ),
         );
-        Navigator.pushReplacementNamed(context, "/home");
-
+        Get.offAllNamed("/home");
       } on FirebaseAuthException catch (e) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('${e.message}'),
           ),
@@ -70,26 +58,41 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async => false,
-      child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: const Text('Login'),
-          centerTitle: true,
-        ),
-        body: SingleChildScrollView(
-          child: Form(
+      child: Container(
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Colors.purple, Colors.blue],
+        )),
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            automaticallyImplyLeading: false,
+            title: const Text(
+              'Login',
+              style: TextStyle(color: Colors.white),
+            ),
+            centerTitle: true,
+          ),
+          body: Form(
             key: _formKey,
             child: Container(
               padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextFormField(
                     controller: _emailController,
                     decoration: const InputDecoration(
                       hintText: 'Email',
-                      icon: Icon(Icons.email_outlined),
+                      hintStyle: TextStyle(color: Colors.white, fontStyle: FontStyle.italic, fontWeight: FontWeight.w100),
+                      icon: Icon(
+                        Icons.email_outlined,
+                        color: Colors.white,
+                      ),
                     ),
                     validator: (String? value) {
                       if (value == null ||
@@ -100,6 +103,7 @@ class LoginPage extends StatelessWidget {
                         return null;
                       }
                     },
+                    style: const TextStyle(color: Colors.white),
                   ),
                   const SizedBox(
                     height: 10,
@@ -109,7 +113,11 @@ class LoginPage extends StatelessWidget {
                     controller: _passwordController,
                     decoration: const InputDecoration(
                       hintText: 'Password',
-                      icon: Icon(Icons.password_outlined),
+                      hintStyle: TextStyle(color: Colors.white, fontStyle: FontStyle.italic, fontWeight: FontWeight.w100),
+                      icon: Icon(
+                        Icons.password_outlined,
+                        color: Colors.white,
+                      ),
                     ),
                     validator: (String? value) {
                       if (value == null ||
@@ -120,6 +128,7 @@ class LoginPage extends StatelessWidget {
                         return null;
                       }
                     },
+                    style: const TextStyle(color: Colors.white),
                   ),
                   const SizedBox(
                     height: 50,
@@ -138,8 +147,10 @@ class LoginPage extends StatelessWidget {
                     onPressed: () {
                       signUp(context);
                     },
-                    icon: const Icon(Icons.add_circle_outline_outlined),
-                    label: const Text('Sign Up'),
+                    style: OutlinedButton.styleFrom(
+                        side: const BorderSide(color: Colors.white)),
+                    icon: const Icon(Icons.add_circle_outline_outlined, color: Colors.white),
+                    label: const Text('Sign Up', style: TextStyle(color: Colors.white),),
                   )
                 ],
               ),
