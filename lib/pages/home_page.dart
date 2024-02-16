@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:recipes_calculator/controllers/home_controller.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,13 +11,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  Future logout() async {
-    await _firebaseAuth.signOut().whenComplete(() =>
-        // Navigator.pushReplacementNamed(context, "/login")
-        Get.offAllNamed("/login"));
-  }
+  HomeController homeController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                               child: const Text('Cancel'),
                             ),
                             TextButton(
-                              onPressed: () => logout(),
+                              onPressed: () => homeController.logout(),
                               child: const Text('OK'),
                             ),
                           ],

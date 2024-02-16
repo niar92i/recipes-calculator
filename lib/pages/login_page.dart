@@ -1,58 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:recipes_calculator/controllers/login_controller.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
 
-  FirebaseAuth auth = FirebaseAuth.instance;
-
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  LoginController loginController = Get.put(LoginController());
 
   final _formKey = GlobalKey<FormState>();
-
-  Future<void> signIn(BuildContext context) async {
-    if (_formKey.currentState!.validate()) {
-      try {
-        await auth.signInWithEmailAndPassword(
-            email: _emailController.text, password: _passwordController.text);
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Logged In Successfully'),
-          ),
-        );
-        Get.offAllNamed("/home");
-      } on FirebaseAuthException catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('${e.message}'),
-          ),
-        );
-      }
-    }
-  }
-
-  Future<void> signUp(BuildContext context) async {
-    if (_formKey.currentState!.validate()) {
-      try {
-        await auth.createUserWithEmailAndPassword(
-            email: _emailController.text, password: _passwordController.text);
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Successfully Signed Up'),
-          ),
-        );
-        Get.offAllNamed("/home");
-      } on FirebaseAuthException catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('${e.message}'),
-          ),
-        );
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +41,7 @@ class LoginPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextFormField(
-                    controller: _emailController,
+                    controller: loginController.emailController,
                     decoration: const InputDecoration(
                       hintText: 'Email',
                       hintStyle: TextStyle(color: Colors.white, fontStyle: FontStyle.italic, fontWeight: FontWeight.w100),
@@ -110,7 +66,7 @@ class LoginPage extends StatelessWidget {
                   ),
                   TextFormField(
                     obscureText: true,
-                    controller: _passwordController,
+                    controller: loginController.passwordController,
                     decoration: const InputDecoration(
                       hintText: 'Password',
                       hintStyle: TextStyle(color: Colors.white, fontStyle: FontStyle.italic, fontWeight: FontWeight.w100),
@@ -135,7 +91,7 @@ class LoginPage extends StatelessWidget {
                   ),
                   ElevatedButton.icon(
                     onPressed: () {
-                      signIn(context);
+                      loginController.signIn(context, _formKey.currentState!.validate());
                     },
                     icon: const Icon(Icons.login_outlined),
                     label: const Text('Sign In'),
@@ -145,7 +101,7 @@ class LoginPage extends StatelessWidget {
                   ),
                   OutlinedButton.icon(
                     onPressed: () {
-                      signUp(context);
+                      loginController.signUp(context, _formKey.currentState!.validate());
                     },
                     style: OutlinedButton.styleFrom(
                         side: const BorderSide(color: Colors.white)),
