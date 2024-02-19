@@ -58,7 +58,9 @@ class _HomePageState extends State<HomePage> {
                   child: SizedBox(
                     width: 140,
                     child: ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.toNamed('/recipes');
+                      },
                       icon: const Icon(
                         Icons.menu_book_outlined,
                       ),

@@ -40,7 +40,6 @@ class CalculatorController extends GetxController {
             result = realResult
                 .toInt()
                 .toString();
-            // equation.value = result.value;
           } else {
             result = realResult
                 .toStringAsFixed(10)
@@ -53,6 +52,7 @@ class CalculatorController extends GetxController {
           }
         } catch (e) {
           result = "Syntax error";
+          equation.value = result;
           print(e);
         }
         break;

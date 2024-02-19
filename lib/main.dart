@@ -5,6 +5,7 @@ import 'package:recipes_calculator/pages/calculator_page.dart';
 import 'package:recipes_calculator/pages/home_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:recipes_calculator/pages/login_page.dart';
+import 'package:recipes_calculator/pages/meals_page.dart';
 import 'firebase_options.dart';
 import 'package:get/get.dart';
 
@@ -33,15 +34,14 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomePage(),
         '/login': (context) => LoginPage(),
         '/calculator': (context) => CalculatorPage(),
+        '/recipes': (context) => MealsPage(),
       },
       title: 'Recipes Calculator',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: auth.currentUser == null
-          ? LoginPage()
-          : const HomePage(),
+      home: auth.currentUser == null ? LoginPage() : const HomePage(),
     );
   }
 }
