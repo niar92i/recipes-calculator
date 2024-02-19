@@ -38,7 +38,7 @@ class MealsPage extends StatelessWidget {
                 colors: [Colors.purple, Colors.blue],
               )),
               child: const Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white)),
               ),
             );
           }

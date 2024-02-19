@@ -60,7 +60,7 @@ class MealListPage extends StatelessWidget {
                           Get.toNamed('/home');
                         },
                         icon: const Icon(Icons.keyboard_return_outlined),
-                        label: const Text('Retour'))),
+                        label: const Text('Return'))),
               ],
             )),
       ),

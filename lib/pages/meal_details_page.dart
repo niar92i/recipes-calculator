@@ -112,7 +112,7 @@ class MealDetailsPage extends StatelessWidget {
                           Get.back();
                         },
                         icon: const Icon(Icons.keyboard_return_outlined),
-                        label: const Text('Retour'))),
+                        label: const Text('Return'))),
               ],
             )),
       ),
