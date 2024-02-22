@@ -8,10 +8,18 @@ import 'package:recipes_calculator/pages/login_page.dart';
 import 'package:recipes_calculator/pages/meals_page.dart';
 import 'firebase_options.dart';
 import 'package:get/get.dart';
+import 'package:get_it/get_it.dart';
+import 'package:recipes_calculator/services/firebase_service.dart';
+
+GetIt locator = GetIt.instance;
+
+void setupSingletons() async {
+  locator.registerLazySingleton<FirebaseService>(() => FirebaseService());
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
+    await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
@@ -19,6 +27,8 @@ void main() async {
   firebaseAppCheck.activate(
     androidProvider: AndroidProvider.debug,
   );
+
+  setupSingletons();
   runApp(const MyApp());
 }
 
